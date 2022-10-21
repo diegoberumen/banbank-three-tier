@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bad Bank</title>
+
+        <!-- transpiler -- don't use this in production: -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!-- Custom css -->
+        <link rel="stylesheet" href="stylesheet.css">
+
+        <!-- Bootstrap css -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        <!-- we will put our React component inside this div -->
+        <div id="root"></div>
+
+        <!-- load React libraries -->
+        <script src="https://unpkg.com/react/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-router@5.2.1/umd/react-router.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-router-dom@5.2.1/umd/react-router-dom.min.js" crossorigin></script>
+        
+        <!-- load our React components -->
+        <script src="context.js" defer type="text/babel"></script>
+        <script src="navbar.js" defer type="text/babel"></script>
+        <script src="createaccount.js" defer type="text/babel"></script>
+        <script src="login.js" defer type="text/babel"></script>
+        <script src="deposit.js" defer type="text/babel"></script>
+        <script src="withdraw.js" defer type="text/babel"></script>
+        <script src="balance.js" defer type="text/babel"></script>
+        <script src="alldata.js" defer type="text/babel"></script>
+        <script src="home.js" defer type="text/babel"></script>
+        <script src="index.js" defer type="text/babel"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
