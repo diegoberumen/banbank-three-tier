@@ -37,6 +37,11 @@ function Withdraw(){
                         user.balance = Number(user.balance) - Number(withdrawalAmount);
                         setTimeout(() => setStatus(""), 1500);
                         setStatus("Withdrawal Confirmed");
+                        let url = `/account/update/${ctx.currentUser[0].email}/-${withdrawalAmount}`;
+                        fetch(url)
+                          .then((response) => response.json())
+                          .then((data) => {
+                          });
                         return setWithdrawalAmount("");
                     };
                 };

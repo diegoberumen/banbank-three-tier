@@ -1,7 +1,8 @@
 function NavBar(){
     const ctx = React.useContext(UserContext);
+    const user = ctx.currentUser[0]
 
-    function handleLogOut(){
+    function handleLogOut() {
         return ctx.currentUser = [];
     };
 

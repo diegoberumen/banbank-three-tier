@@ -21,6 +21,46 @@ function create(name, email, password) {
     });
 };
 
+//Log-In
+function login(email, password) {
+    return new Promise((resolve, reject) => {
+        const customers = db
+            .collection('users')
+            .find({ email: email })
+            .toArray(function (err, docs) {
+                err ? reject(err) : resolve(docs);
+            });
+    });
+};
+
+//Balance
+function balance(email) {
+    return new Promise((resolve, reject) => {
+        const customers = db
+            .collection('users')
+            .find({ email: email })
+            .toArray(function (err, docs) {
+                err ? reject(err) : resolve(docs)
+            });
+    });
+};
+
+//Balance Update
+function update(email, newBalance) {
+    return new Promise((resolve, reject) => {
+        const customer = db
+            .collection('users')
+            .findOneAndUpdate(
+                { email: email },
+                { $inc: { balance: newBalance } },
+                { returnOriginal: false },
+                function (err, docs) {
+                    err ? reject(err) : resolve(docs);
+                }
+            );
+    });
+};
+
 //All Users
 function all() {
     return new Promise((resolve, reject) => {
@@ -33,4 +73,4 @@ function all() {
     });
 };
 
-module.exports = { create, all };
+module.exports = { create, all, login, balance, update };

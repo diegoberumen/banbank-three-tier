@@ -33,6 +33,11 @@ function Deposit(){
                     user.balance = Number(depositAmount) + Number(user.balance);  
                     setTimeout(() => setStatus(""), 1500);
                     setStatus("Deposit Confirmed");
+                    let url = `/account/update/${ctx.currentUser[0].email}/${depositAmount}`;
+                    fetch(url)
+                      .then((response) => response.json())
+                      .then((data) => {
+                      });
                     return setDepositAmount("");
                 };
             };

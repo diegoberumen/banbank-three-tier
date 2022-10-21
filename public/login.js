@@ -1,11 +1,10 @@
 function LogIn() {
-  const [status, setStatus] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [status, setStatus]     = React.useState("");
+  const [name, setName]         = React.useState("");
+  const [email, setEmail]       = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
-  //   const redirect = useNavigate();
-  let userObj = "";
+  const [data, setData]         = React.useState("");
+  const ctx                     = React.useContext(UserContext);
   let logInName = "";
 
   function validate(field, label) {
@@ -17,20 +16,8 @@ function LogIn() {
     return true;
   }
 
-  function emailExists(email) {
-    return ctx.users.some(function (el) {
-      userObj = ctx.users.filter((obj) => obj.email === email);
-      return el.email === email;
-    });
-  }
-
-  function passwordConfirmation(password) {
-    if (userObj[0].password === password) {
-      setName(userObj[0].name);
-      return true;
-    } else {
-      return false;
-    }
+  function redirect(hash) {
+    location.hash = hash
   }
 
   function handleLogin() {
@@ -43,20 +30,26 @@ function LogIn() {
     } else {
       if (!validate(email, "email")) return alert("Enter E-Mail");
       if (!validate(password, "password")) return alert("Enter Password");
-      if (emailExists(email) && passwordConfirmation(password)) {
-        ctx.currentUser.push(userObj[0]);
-        logInName = userObj[0].name;
-        setTimeout(() => setStatus(""), 1500);
-        setEmail("");
-        setPassword("");
-        setStatus(`Log-In Successful, ${logInName}. Redirecting...`);
-        return setTimeout(() => redirect("/balance"), 1500);
-      } else {
-        setTimeout(() => setStatus(""), 1500);
-        return setStatus("Incorrect Email or Password");
-      }
-    }
-  }
+      const url = `/account/login/${email}/${password}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then(data => {
+          setData(data);
+          if ('name' in data) {
+            ctx.currentUser.push(data);
+            logInName = data.name;
+            setTimeout(() => setStatus(""), 1500);
+            setEmail("");
+            setPassword("");
+            setStatus(`Log-In Successful, ${logInName}. Redirecting...`);
+            return setTimeout(() => redirect("/balance"), 1500);
+          } else {
+            setStatus(data.LoginFailed);
+            return setTimeout(() => setStatus(""), 1500);
+          };
+        }); 
+    };
+  };
 
   return (
     <Card

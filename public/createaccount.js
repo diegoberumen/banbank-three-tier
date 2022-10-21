@@ -40,12 +40,10 @@ function CreateAccount(){
         if(!validate(password, "password")) return;
         if(!validateEmail()) return;
         if(!validatePwd()) return;
-        console.log(name, email, password);
         const url = `/account/create/${name}/${email}/${password}`;
         (async () => {
             var res = await fetch(url);
             var data = await res.json();
-            console.log(data);
         })();
         setShow(false);
     };
