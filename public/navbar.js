@@ -1,12 +1,24 @@
 function NavBar(){
+    const [show, setShow]          = React.useState(false);
     const ctx = React.useContext(UserContext);
     const user = ctx.currentUser[0]
+
+    React.useEffect(() => {
+        window.addEventListener('hashchange', (event) => {
+            if(ctx.currentUser.length === 1) {
+                return setShow(true);
+            } else {
+                return setShow(false);
+            }
+        });
+      }, []);
+    
 
     function handleLogOut() {
         return ctx.currentUser = [];
     };
 
-    return(
+    return show ? (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Home page">
@@ -37,11 +49,37 @@ function NavBar(){
                             <a className="nav-link" href="#/alldata/">All Data</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Log out of account" onClick={handleLogOut}>Log Out</a>
+                            <a id="logout" className="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Log out of account" onClick={handleLogOut}>Log Out</a>
                         </li>
                     </ul>
                 </div>
+                <div><h2 className="navbar-brand fw-bolder">Hello, {user.name}</h2></div>
             </div>
         </nav>
-    );
+    ) : (
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Home page">
+                        <img src="256px/Reputational-Risk.png" alt="" width="auto" height="28" className="d-inline-block align-text-top" />
+                        &nbsp; BadBank
+                    </a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" aria-current="page" href="#/CreateAccount/" data-toggle="tooltip" data-placement="bottom" title="Create a new account">Create Account</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#/login/" data-toggle="tooltip" data-placement="bottom" title="Log-In to an existing account">Log-In</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#/alldata/">All Data</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        );
 };
